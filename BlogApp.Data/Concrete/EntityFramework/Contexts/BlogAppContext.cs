@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlogApp.Data.Concrete.EntityFramework.Mappings;
 using BlogApp.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,15 @@ namespace BlogApp.Data.Concrete.EntityFramework.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(LocalDb)\MSSQLLocalDB;Database=BlogApp;Trusted_Connection=True;Connect Timeout=30;MultipleActiveResultSets=True;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ArticleMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new CommentMap());
+            modelBuilder.ApplyConfiguration(new RoleMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
         }
     }
 }
