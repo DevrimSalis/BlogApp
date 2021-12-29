@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogApp.Services.Extensions;
 
 namespace BlogApp.WebUI
 {
@@ -24,6 +25,7 @@ namespace BlogApp.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.LoadMyService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
