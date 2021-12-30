@@ -24,7 +24,8 @@ namespace BlogApp.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddAutoMapper(typeof(Startup));
             services.LoadMyService();
         }
 
@@ -34,6 +35,7 @@ namespace BlogApp.WebUI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
             }
             else
             {
@@ -50,9 +52,12 @@ namespace BlogApp.WebUI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                    name: "Admin",
+                    areaName: "Admin",
+                    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+                    );
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
